@@ -1,0 +1,130 @@
+////html
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Converter</title>
+    <link rel="stylesheet" href="hee.css">
+</head>
+<body>
+    <h1>Temperature Converter</h1>
+    <label for="inputTemp">Input Temperature:</label>
+    <input type="number" id="inputTemp" name="inputTemp" required><br>
+    <label for="inputUnit">Input Unit:</label>
+    <select id="inputUnit" name="inputUnit">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+    </select><br>
+    <label for="outputUnit">Output Unit:</label>
+    <select id="outputUnit" name="outputUnit">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+    </select><br>
+    <button onclick="convertTemp()">Convert</button>
+    <h2 id="outputTemp"></h2>
+    <script src="heee.js"></script>
+</body>
+</html>
+
+
+*/css/*
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.converter-container {
+  background-color: #ffffff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  width: 20rem;
+}
+
+.input-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+input {
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+label {
+  display: block;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+button {
+  background-color: #26a65b;
+  border: none;
+  border-radius: 3px;
+  color: #ffffff;
+  font-size: 1.1rem;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+button:hover {
+  background-color: #1e7a47;
+}
+
+#result {
+  margin: 1rem 0;
+}
+
+
+/////Java
+function convertTemp() {
+    const inputTemp = parseFloat(document.getElementById('inputTemp').value);
+    const inputUnit = document.getElementById('inputUnit').value;
+    const outputUnit = document.getElementById('outputUnit').value;
+    let outputTemp;
+
+    if (inputUnit === 'celsius') {
+        if (outputUnit === 'fahrenheit') {
+            outputTemp = (inputTemp * 9/5) + 32;
+        } else if (outputUnit === 'kelvin') {
+            outputTemp = inputTemp + 273.15;
+        } else {
+            outputTemp = inputTemp;
+        }
+    } else if (inputUnit === 'fahrenheit') {
+        if (outputUnit === 'celsius') {
+            outputTemp = (inputTemp - 32) * 5/9;
+        } else if (outputUnit === 'kelvin') {
+            outputTemp = ((inputTemp - 32) * 5/9) + 273.15;
+        } else {
+            outputTemp = inputTemp;
+        }
+    } else {
+        if (outputUnit === 'celsius') {
+            outputTemp = inputTemp - 273.15;
+        } else if (outputUnit === 'fahrenheit') {
+            outputTemp = (inputTemp - 273.15) * 9/5 + 32;
+        } else {
+            outputTemp = inputTemp;
+        }
+    }
+
+    document.getElementById('outputTemp').textContent = `Output Temperature: ${outputTemp.toFixed(2)} ${outputUnit}`;
+}
